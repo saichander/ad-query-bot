@@ -17,27 +17,27 @@ const tableData = [
 
 const ResponseTable = () => {
   return (
-    <div className="glass-strong rounded-xl p-6 space-y-4">
-      <h3 className="text-lg font-semibold text-foreground">Top Performing Campaigns</h3>
-      <div className="rounded-lg border border-white/10 overflow-hidden">
+    <div className="bg-gray-50 rounded-xl p-6 space-y-4 border border-gray-200">
+      <h3 className="text-lg font-semibold text-gray-900">Top Performing Campaigns</h3>
+      <div className="rounded-lg border border-gray-200 overflow-hidden bg-white">
         <Table>
           <TableHeader>
-            <TableRow className="border-white/10 hover:bg-white/5">
-              <TableHead className="text-muted-foreground">Campaign</TableHead>
-              <TableHead className="text-muted-foreground">CTR</TableHead>
-              <TableHead className="text-muted-foreground">Conversions</TableHead>
-              <TableHead className="text-muted-foreground">Spend</TableHead>
-              <TableHead className="text-muted-foreground">ROI</TableHead>
+            <TableRow className="border-gray-200 hover:bg-gray-50">
+              <TableHead className="text-gray-600 font-semibold">Campaign</TableHead>
+              <TableHead className="text-gray-600 font-semibold">CTR</TableHead>
+              <TableHead className="text-gray-600 font-semibold">Conversions</TableHead>
+              <TableHead className="text-gray-600 font-semibold">Spend</TableHead>
+              <TableHead className="text-gray-600 font-semibold">ROI</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {tableData.map((row, index) => (
-              <TableRow key={index} className="border-white/10 hover:bg-white/5">
-                <TableCell className="font-medium text-foreground">{row.campaign}</TableCell>
-                <TableCell className="text-foreground">{row.ctr}</TableCell>
-                <TableCell className="text-foreground">{row.conversions}</TableCell>
-                <TableCell className="text-foreground">{row.spend}</TableCell>
-                <TableCell className="text-accent font-semibold">{row.roi}</TableCell>
+              <TableRow key={index} className="border-gray-200 hover:bg-gray-50">
+                <TableCell className="font-medium text-gray-900">{row.campaign}</TableCell>
+                <TableCell className="text-gray-700">{row.ctr}</TableCell>
+                <TableCell className="text-gray-700">{row.conversions}</TableCell>
+                <TableCell className="text-gray-700">{row.spend}</TableCell>
+                <TableCell className="text-primary font-semibold">{row.roi}</TableCell>
               </TableRow>
             ))}
           </TableBody>

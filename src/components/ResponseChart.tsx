@@ -10,20 +10,20 @@ const data = [
 
 const ResponseChart = () => {
   return (
-    <div className="glass-strong rounded-xl p-6 space-y-4">
-      <h3 className="text-lg font-semibold text-foreground">Campaign ROI Comparison</h3>
+    <div className="bg-gray-50 rounded-xl p-6 space-y-4 border border-gray-200">
+      <h3 className="text-lg font-semibold text-gray-900">Campaign ROI Comparison</h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-          <XAxis dataKey="campaign" stroke="hsl(var(--muted-foreground))" />
-          <YAxis stroke="hsl(var(--muted-foreground))" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <XAxis dataKey="campaign" stroke="#6b7280" />
+          <YAxis stroke="#6b7280" />
           <Tooltip
             contentStyle={{
-              backgroundColor: "hsl(var(--card))",
-              border: "1px solid rgba(255,255,255,0.1)",
+              backgroundColor: "#ffffff",
+              border: "1px solid #e5e7eb",
               borderRadius: "8px",
             }}
-            labelStyle={{ color: "hsl(var(--foreground))" }}
+            labelStyle={{ color: "#111827" }}
           />
           <Bar dataKey="roi" fill="hsl(var(--primary))" radius={[8, 8, 0, 0]} />
         </BarChart>

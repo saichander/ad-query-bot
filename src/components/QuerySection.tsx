@@ -70,28 +70,34 @@ const QuerySection = () => {
 
         {/* Output Area - Shows single response */}
         {(currentQuery || response) && (
-          <div className="space-y-6 animate-slide-up">
-            {currentQuery && (
-              <div className="glass rounded-xl p-4">
-                <p className="text-foreground font-medium">{currentQuery}</p>
-              </div>
-            )}
-            {response && (
-              <>
-                <div className="glass-strong rounded-xl p-6">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                      <Sparkles className="w-4 h-4 text-primary" />
+          <div className="animate-slide-up">
+            {/* White content container */}
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+              {currentQuery && (
+                <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 border-b border-gray-200">
+                  <p className="text-gray-900 font-medium text-lg">{currentQuery}</p>
+                </div>
+              )}
+              {response && (
+                <div className="p-8 space-y-8">
+                  {/* Text Response */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
+                      <Sparkles className="w-5 h-5 text-white" />
                     </div>
-                    <p className="text-foreground whitespace-pre-line">{response}</p>
+                    <div className="flex-1">
+                      <p className="text-gray-700 leading-relaxed whitespace-pre-line">{response}</p>
+                    </div>
+                  </div>
+                  
+                  {/* Chart and Table */}
+                  <div className="space-y-6">
+                    <ResponseChart />
+                    <ResponseTable />
                   </div>
                 </div>
-                
-                {/* Chart and Table */}
-                <ResponseChart />
-                <ResponseTable />
-              </>
-            )}
+              )}
+            </div>
           </div>
         )}
       </div>
