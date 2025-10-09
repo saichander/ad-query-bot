@@ -5,19 +5,22 @@ import { Send, Sparkles } from "lucide-react";
 
 const QuerySection = () => {
   const [query, setQuery] = useState("");
-  const [responses, setResponses] = useState<Array<{ query: string; response: string }>>([]);
+  const [currentQuery, setCurrentQuery] = useState("");
+  const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
     if (!query.trim()) return;
 
     setIsLoading(true);
+    setCurrentQuery(query);
+    setResponse("");
     
     // Simulate AI response
     setTimeout(() => {
       const mockResponse = `Based on your query about "${query}", here's what I found:\n\n• Campaign performance is trending upward with a 23% increase in CTR\n• Top performing segment: 25-34 age group\n• Recommended optimization: Increase budget allocation to mobile platforms\n\nWould you like more detailed metrics or specific recommendations?`;
       
-      setResponses([...responses, { query, response: mockResponse }]);
+      setResponse(mockResponse);
       setQuery("");
       setIsLoading(false);
     }, 1500);
@@ -31,27 +34,8 @@ const QuerySection = () => {
           <p className="text-muted-foreground">Get instant insights powered by AI</p>
         </div>
 
-        {/* Output Area */}
-        <div className="space-y-4">
-          {responses.map((item, index) => (
-            <div key={index} className="space-y-3 animate-slide-up">
-              <div className="glass rounded-xl p-4 ml-auto max-w-[80%]">
-                <p className="text-foreground">{item.query}</p>
-              </div>
-              <div className="glass-strong rounded-xl p-6 mr-auto max-w-[80%]">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-4 h-4 text-primary" />
-                  </div>
-                  <p className="text-foreground whitespace-pre-line">{item.response}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Input Area */}
-        <div className="glass-strong rounded-2xl p-6 space-y-4 sticky bottom-6">
+        {/* Input Area - Now at the top */}
+        <div className="glass-strong rounded-2xl p-6 space-y-4">
           <Textarea
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -81,6 +65,27 @@ const QuerySection = () => {
             </Button>
           </div>
         </div>
+
+        {/* Output Area - Shows single response */}
+        {(currentQuery || response) && (
+          <div className="space-y-4 animate-slide-up">
+            {currentQuery && (
+              <div className="glass rounded-xl p-4">
+                <p className="text-foreground font-medium">{currentQuery}</p>
+              </div>
+            )}
+            {response && (
+              <div className="glass-strong rounded-xl p-6">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                  </div>
+                  <p className="text-foreground whitespace-pre-line">{response}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );
