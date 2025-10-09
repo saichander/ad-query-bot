@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send, Sparkles } from "lucide-react";
+import ResponseChart from "./ResponseChart";
+import ResponseTable from "./ResponseTable";
 
 const QuerySection = () => {
   const [query, setQuery] = useState("");
@@ -68,21 +70,27 @@ const QuerySection = () => {
 
         {/* Output Area - Shows single response */}
         {(currentQuery || response) && (
-          <div className="space-y-4 animate-slide-up">
+          <div className="space-y-6 animate-slide-up">
             {currentQuery && (
               <div className="glass rounded-xl p-4">
                 <p className="text-foreground font-medium">{currentQuery}</p>
               </div>
             )}
             {response && (
-              <div className="glass-strong rounded-xl p-6">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-4 h-4 text-primary" />
+              <>
+                <div className="glass-strong rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Sparkles className="w-4 h-4 text-primary" />
+                    </div>
+                    <p className="text-foreground whitespace-pre-line">{response}</p>
                   </div>
-                  <p className="text-foreground whitespace-pre-line">{response}</p>
                 </div>
-              </div>
+                
+                {/* Chart and Table */}
+                <ResponseChart />
+                <ResponseTable />
+              </>
             )}
           </div>
         )}
