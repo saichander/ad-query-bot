@@ -22,7 +22,7 @@ const HeroSection = ({ onGetStarted }: { onGetStarted: () => void }) => {
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 pt-20 relative">
+    <section className="min-h-screen flex items-center justify-center px-6 pt-8 relative">
       <AnimatedBackground />
       <div className="max-w-4xl mx-auto text-center space-y-8 animate-slide-up relative z-10">
         <div className="space-y-4">
