@@ -62,7 +62,7 @@ const AnimatedBackground = () => {
 
       {/* Floating Mini Table - Bottom Left */}
       <div
-        className={`absolute bottom-32 left-16 glass-strong rounded-xl p-4 transition-all duration-1000 animate-float ${
+        className={`absolute bottom-4 left-16 glass-strong rounded-xl p-4 transition-all duration-1000 animate-float ${
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
         style={{ animationDelay: "0.6s" }}
@@ -89,7 +89,7 @@ const AnimatedBackground = () => {
 
       {/* Floating Pie Chart - Bottom Right */}
       <div
-        className={`absolute bottom-24 right-20 glass-strong rounded-xl p-4 transition-all duration-1000 animate-float ${
+        className={`absolute bottom-4 right-20 glass-strong rounded-xl p-4 transition-all duration-1000 animate-float ${
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
         style={{ animationDelay: "0.9s" }}
