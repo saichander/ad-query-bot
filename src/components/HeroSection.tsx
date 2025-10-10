@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const placeholderPrompts = [
   "How are my Q4 campaigns performing across all channels?",
@@ -21,8 +22,9 @@ const HeroSection = ({ onGetStarted }: { onGetStarted: () => void }) => {
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 pt-20">
-      <div className="max-w-4xl mx-auto text-center space-y-8 animate-slide-up">
+    <section className="min-h-screen flex items-center justify-center px-6 pt-20 relative">
+      <AnimatedBackground />
+      <div className="max-w-4xl mx-auto text-center space-y-8 animate-slide-up relative z-10">
         <div className="space-y-4">
           <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-primary-glow via-accent to-accent-glow bg-clip-text text-transparent leading-tight">
             AI-Powered Campaign Insights
