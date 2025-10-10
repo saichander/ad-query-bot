@@ -27,10 +27,10 @@ const HeroSection = ({ onGetStarted }: { onGetStarted: () => void }) => {
       <div className="max-w-4xl mx-auto text-center space-y-8 animate-slide-up relative z-10">
         <div className="space-y-4">
           <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-primary-glow via-accent to-accent-glow bg-clip-text text-transparent leading-tight">
-            AI-Powered Campaign Insights
+            Chartificial Intelligence — AI-Powered Insights
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ask questions about your adtech campaigns in natural language and get instant insights with text, tables, and visualizations.
+            Ask questions about your campaigns in plain English and get instant insights with text, tables, and visualizations.
           </p>
         </div>
 
@@ -63,18 +63,6 @@ const HeroSection = ({ onGetStarted }: { onGetStarted: () => void }) => {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
-          {[
-            { title: "Natural Language", desc: "Ask questions like you're talking to a colleague" },
-            { title: "Multi-Format Insights", desc: "Get answers in text, tables, and visualizations" },
-            { title: "Real-Time Data", desc: "Access up-to-date campaign performance metrics" },
-          ].map((feature, i) => (
-            <div key={i} className="glass rounded-xl p-6 space-y-2 hover:glass-strong transition-all">
-              <h3 className="font-semibold text-lg text-foreground">{feature.title}</h3>
-              <p className="text-sm text-muted-foreground">{feature.desc}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
