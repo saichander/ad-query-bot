@@ -51,26 +51,14 @@ const HeroSection = ({ onGetStarted }: { onGetStarted: () => void }) => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="text-muted-foreground text-sm">Or</div>
-            <div className="flex-1 h-px bg-border"></div>
-          </div>
-
-          <div className="flex gap-3">
-            <input
-              type="text"
-              placeholder="Type your question here..."
-              className="flex-1 px-4 py-3 rounded-lg bg-background/50 border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <Button
-              size="lg"
-              onClick={onGetStarted}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground group"
-            >
-              Get Started
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
+          <Button
+            size="lg"
+            onClick={onGetStarted}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground group w-full md:w-auto"
+          >
+            Get Started
+            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Button>
         </div>
 
       </div>
