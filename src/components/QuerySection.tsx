@@ -30,49 +30,42 @@ const QuerySection = () => {
 
   return (
     <section className="min-h-screen px-6 py-20">
-      <div className="max-w-5xl mx-auto space-y-8">
-        <div className="text-center space-y-2">
-          <h2 className="text-4xl font-bold">Ask Anything About Your Campaigns</h2>
-          <p className="text-muted-foreground">Get instant insights powered by AI</p>
-        </div>
-
-        {/* Input Area - Now at the top */}
-        <div className="glass-strong rounded-2xl p-6 space-y-4">
-          <Textarea
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Ask about campaign performance, metrics, trends..."
-            className="min-h-[120px] bg-background/50 border-white/10 resize-none focus:ring-2 focus:ring-primary"
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                handleSubmit();
-              }
-            }}
-          />
-          <div className="flex justify-end">
-            <Button
-              onClick={handleSubmit}
-              disabled={!query.trim() || isLoading}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
-            >
-              {isLoading ? (
-                <>Processing...</>
-              ) : (
-                <>
-                  Send
-                  <Send className="ml-2 w-4 h-4" />
-                </>
-              )}
-            </Button>
+      <div className="max-w-5xl mx-auto">
+        {/* Combined Input and Response Area */}
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+          {/* Input Area */}
+          <div className="p-6 border-b border-gray-200">
+            <div className="flex gap-3 items-start">
+              <Textarea
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Ask about campaign performance, metrics, trends..."
+                className="flex-1 min-h-[80px] bg-gray-50 border-gray-200 resize-none focus:ring-2 focus:ring-primary"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSubmit();
+                  }
+                }}
+              />
+              <Button
+                onClick={handleSubmit}
+                disabled={!query.trim() || isLoading}
+                size="icon"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground h-10 w-10 flex-shrink-0"
+              >
+                {isLoading ? (
+                  <Sparkles className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Send className="w-4 h-4" />
+                )}
+              </Button>
+            </div>
           </div>
-        </div>
 
-        {/* Output Area - Shows single response */}
-        {(currentQuery || response) && (
-          <div className="animate-slide-up">
-            {/* White content container */}
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+          {/* Response Area */}
+          {(currentQuery || response) && (
+            <div className="animate-slide-up">
               {currentQuery && (
                 <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 border-b border-gray-200">
                   <p className="text-gray-900 font-medium text-lg">{currentQuery}</p>
@@ -98,8 +91,8 @@ const QuerySection = () => {
                 </div>
               )}
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </section>
   );
