@@ -1,34 +1,21 @@
 import { useEffect, useState } from "react";
-import { Sparkles } from "lucide-react";
+import { TrendingUp, BarChart3, Target, Zap } from "lucide-react";
 
 const AILoader = () => {
   const [progress, setProgress] = useState(0);
-  const [dots, setDots] = useState<Array<{ id: number; x: number; y: number; size: number; delay: number; duration: number }>>([]);
+  const [metrics, setMetrics] = useState({ impressions: 0, ctr: 0, conversions: 0, roi: 0 });
 
   const stages = [
-    "Initializing neural pathways",
-    "Processing semantic layers",
-    "Extracting insights",
-    "Synthesizing patterns",
-    "Generating response",
-    "Finalizing analysis"
+    { text: "Scanning campaign data", icon: Target },
+    { text: "Analyzing performance metrics", icon: BarChart3 },
+    { text: "Computing insights", icon: Zap },
+    { text: "Generating recommendations", icon: TrendingUp },
   ];
 
-  const currentStage = Math.min(Math.floor(progress / 16.67), stages.length - 1);
+  const currentStage = Math.min(Math.floor(progress / 25), stages.length - 1);
+  const CurrentIcon = stages[currentStage].icon;
 
   useEffect(() => {
-    // Generate enhanced particle system
-    const particles = Array.from({ length: 50 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 4 + 1,
-      delay: Math.random() * 3,
-      duration: Math.random() * 3 + 2,
-    }));
-    setDots(particles);
-
-    // Smooth progress animation
     const duration = 30000;
     const interval = 50;
     const steps = duration / interval;
@@ -36,159 +23,142 @@ const AILoader = () => {
 
     const progressInterval = setInterval(() => {
       step++;
-      setProgress((step / steps) * 100);
+      const newProgress = (step / steps) * 100;
+      setProgress(newProgress);
+      
+      // Animate metrics
+      setMetrics({
+        impressions: Math.floor((newProgress / 100) * 847293),
+        ctr: parseFloat(((newProgress / 100) * 4.67).toFixed(2)),
+        conversions: Math.floor((newProgress / 100) * 12847),
+        roi: Math.floor((newProgress / 100) * 287),
+      });
+
       if (step >= steps) clearInterval(progressInterval);
     }, interval);
 
     return () => clearInterval(progressInterval);
   }, []);
 
+  // Generate random bar heights for animated chart
+  const bars = Array.from({ length: 12 }, (_, i) => ({
+    height: Math.sin(i * 0.5 + progress * 0.05) * 30 + 40,
+    delay: i * 0.1,
+  }));
+
   return (
-    <div className="relative w-full h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/20 to-primary/20 animate-pulse" />
-        <div className="absolute inset-0 bg-gradient-to-tl from-accent/20 via-primary/20 to-accent/20 animate-pulse" style={{ animationDelay: '1s' }} />
+    <div className="relative w-full h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      {/* Grid Background */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(hsl(var(--primary) / 0.3) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--primary) / 0.3) 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px',
+        }} />
       </div>
 
-      {/* Enhanced particle system */}
-      {dots.map((dot) => (
-        <div
-          key={dot.id}
-          className="absolute rounded-full bg-gradient-to-br from-primary to-accent opacity-60 animate-float blur-[1px]"
+      {/* Animated scan lines */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div 
+          className="absolute w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-30"
           style={{
-            left: `${dot.x}%`,
-            top: `${dot.y}%`,
-            width: `${dot.size}px`,
-            height: `${dot.size}px`,
-            animationDelay: `${dot.delay}s`,
-            animationDuration: `${dot.duration}s`,
+            top: `${progress}%`,
+            transition: 'top 0.05s linear',
+            boxShadow: '0 0 20px hsl(var(--primary))',
           }}
         />
-      ))}
-
-      {/* Rotating geometric rings */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="relative w-80 h-80">
-          {[0, 1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="absolute inset-0 border-2 rounded-full animate-spin"
-              style={{
-                borderColor: i % 2 === 0 ? 'hsl(var(--primary) / 0.3)' : 'hsl(var(--accent) / 0.3)',
-                animationDuration: `${20 - i * 3}s`,
-                animationDirection: i % 2 === 0 ? 'normal' : 'reverse',
-                transform: `scale(${1 - i * 0.15})`,
-              }}
-            >
-              <div
-                className="absolute w-3 h-3 rounded-full bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/50"
-                style={{
-                  top: '50%',
-                  left: '0%',
-                  transform: 'translate(-50%, -50%)',
-                }}
-              />
-            </div>
-          ))}
-        </div>
       </div>
 
-      {/* Central orb with pulsing glow */}
-      <div className="absolute">
-        <div className="relative">
-          {/* Outer glow rings */}
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 animate-ping"
-              style={{
-                width: `${120 + i * 40}px`,
-                height: `${120 + i * 40}px`,
-                left: `${-60 - i * 20}px`,
-                top: `${-60 - i * 20}px`,
-                animationDelay: `${i * 0.3}s`,
-                animationDuration: '3s',
-              }}
-            />
-          ))}
+      {/* Main Content Container */}
+      <div className="relative z-10 w-full max-w-4xl px-8">
+        <div className="flex flex-col items-center space-y-8">
           
-          {/* Central sphere */}
-          <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-primary via-accent to-primary animate-glow shadow-2xl">
-            <div className="absolute inset-2 rounded-full bg-gradient-to-tl from-primary/50 to-accent/50 backdrop-blur-sm" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Sparkles className="w-10 h-10 text-white animate-pulse" />
+          {/* Top Metrics Cards */}
+          <div className="grid grid-cols-4 gap-4 w-full">
+            {[
+              { label: 'Impressions', value: metrics.impressions.toLocaleString(), color: 'from-blue-500 to-cyan-500' },
+              { label: 'CTR', value: `${metrics.ctr}%`, color: 'from-purple-500 to-pink-500' },
+              { label: 'Conversions', value: metrics.conversions.toLocaleString(), color: 'from-green-500 to-emerald-500' },
+              { label: 'ROI', value: `${metrics.roi}%`, color: 'from-orange-500 to-red-500' },
+            ].map((metric, i) => (
+              <div 
+                key={i}
+                className="glass-strong rounded-xl p-4 border border-white/10 animate-fade-in"
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                <div className={`text-xs text-gray-400 mb-1`}>{metric.label}</div>
+                <div className={`text-2xl font-bold bg-gradient-to-r ${metric.color} bg-clip-text text-transparent tabular-nums`}>
+                  {metric.value}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Central Analytics Visualization */}
+          <div className="relative w-full">
+            {/* Animated Bar Chart */}
+            <div className="glass-strong rounded-2xl p-6 border border-white/10">
+              <div className="flex items-end justify-between h-40 gap-2">
+                {bars.map((bar, i) => (
+                  <div key={i} className="flex-1 flex flex-col items-center gap-2">
+                    <div 
+                      className="w-full rounded-t-lg bg-gradient-to-t from-primary via-accent to-primary relative overflow-hidden transition-all duration-300"
+                      style={{ 
+                        height: `${bar.height}%`,
+                        animationDelay: `${bar.delay}s`,
+                      }}
+                    >
+                      <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                      <div 
+                        className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-white/30 to-transparent"
+                        style={{
+                          animation: `shimmer 2s infinite`,
+                          animationDelay: `${bar.delay}s`,
+                        }}
+                      />
+                    </div>
+                    <div className="w-2 h-2 rounded-full bg-primary/50" />
+                  </div>
+                ))}
+              </div>
+              
+              {/* Chart Labels */}
+              <div className="flex justify-between mt-4 text-xs text-gray-500">
+                <span>Jan</span>
+                <span>Apr</span>
+                <span>Jul</span>
+                <span>Oct</span>
+              </div>
             </div>
-            
-            {/* Rotating inner ring */}
-            <div className="absolute inset-0 rounded-full border-2 border-white/30 animate-spin" style={{ animationDuration: '4s' }}>
-              <div className="absolute w-2 h-2 rounded-full bg-white shadow-lg shadow-white/50" style={{ top: '-1px', left: '50%', transform: 'translateX(-50%)' }} />
+
+            {/* Floating Data Nodes */}
+            <div className="absolute -right-8 top-1/2 -translate-y-1/2">
+              <div className="relative w-24 h-24">
+                {[0, 1, 2].map((i) => (
+                  <div
+                    key={i}
+                    className="absolute inset-0 rounded-full border-2 border-accent/30 animate-ping"
+                    style={{
+                      animationDelay: `${i * 0.5}s`,
+                      animationDuration: '3s',
+                    }}
+                  />
+                ))}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center shadow-lg shadow-accent/50 animate-glow">
+                    <CurrentIcon className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Data stream visualization */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <svg className="w-full h-full opacity-40" viewBox="0 0 800 600">
-          <defs>
-            <linearGradient id="stream-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.8" />
-              <stop offset="50%" stopColor="hsl(var(--accent))" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.8" />
-            </linearGradient>
-          </defs>
-          
-          {[...Array(8)].map((_, i) => {
-            const angle = (i * Math.PI * 2) / 8;
-            const x1 = 400 + Math.cos(angle) * 150;
-            const y1 = 300 + Math.sin(angle) * 150;
-            return (
-              <line
-                key={i}
-                x1={x1}
-                y1={y1}
-                x2="400"
-                y2="300"
-                stroke="url(#stream-gradient)"
-                strokeWidth="2"
-                className="animate-pulse"
-                style={{
-                  animationDelay: `${i * 0.2}s`,
-                  animationDuration: '2s',
-                }}
-              />
-            );
-          })}
-          
-          {[...Array(8)].map((_, i) => {
-            const angle = (i * Math.PI * 2) / 8;
-            const x = 400 + Math.cos(angle) * 150;
-            const y = 300 + Math.sin(angle) * 150;
-            return (
-              <circle
-                key={`node-${i}`}
-                cx={x}
-                cy={y}
-                r="6"
-                fill="hsl(var(--accent))"
-                className="animate-pulse"
-                style={{
-                  animationDelay: `${i * 0.2}s`,
-                  animationDuration: '2s',
-                }}
-              />
-            );
-          })}
-        </svg>
-      </div>
-
-      {/* Text content with enhanced styling */}
-      <div className="absolute bottom-20 left-0 right-0 z-20">
-        <div className="max-w-2xl mx-auto px-6 space-y-6">
-          {/* Stage indicator */}
-          <div className="text-center space-y-3 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+          {/* Status and Progress */}
+          <div className="w-full space-y-4">
+            {/* Stage Indicator */}
+            <div className="flex items-center justify-center gap-3">
               <div className="flex gap-1">
                 {[...Array(3)].map((_, i) => (
                   <div
@@ -198,36 +168,40 @@ const AILoader = () => {
                   />
                 ))}
               </div>
-              <span className="text-white font-medium text-sm tracking-wide">
-                {stages[currentStage]}
+              <span className="text-white/80 font-medium text-sm tracking-wide">
+                {stages[currentStage].text}
+              </span>
+            </div>
+
+            {/* Progress Bar */}
+            <div className="relative h-2 bg-white/5 rounded-full overflow-hidden border border-white/10">
+              <div
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-accent to-primary rounded-full shadow-lg shadow-primary/50 transition-all duration-300 ease-out"
+                style={{ width: `${progress}%` }}
+              >
+                <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                <div 
+                  className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-pulse"
+                />
+              </div>
+            </div>
+
+            {/* Progress Percentage */}
+            <div className="text-center">
+              <span className="text-3xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tabular-nums">
+                {Math.round(progress)}%
               </span>
             </div>
           </div>
-
-          {/* Progress bar */}
-          <div className="relative h-2 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm border border-white/20">
-            <div
-              className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-accent to-primary rounded-full shadow-lg shadow-primary/50 transition-all duration-300 ease-out"
-              style={{ width: `${progress}%` }}
-            >
-              <div className="absolute inset-0 bg-white/30 animate-pulse" />
-            </div>
-            
-            {/* Progress glow */}
-            <div
-              className="absolute inset-y-0 w-16 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-pulse blur-sm"
-              style={{ left: `${Math.max(0, progress - 10)}%` }}
-            />
-          </div>
-
-          {/* Percentage */}
-          <div className="text-center">
-            <span className="text-2xl font-bold text-white tracking-wider tabular-nums">
-              {Math.round(progress)}%
-            </span>
-          </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes shimmer {
+          0%, 100% { transform: translateY(100%); }
+          50% { transform: translateY(-100%); }
+        }
+      `}</style>
     </div>
   );
 };
