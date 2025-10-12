@@ -19,14 +19,14 @@ const QuerySection = () => {
     setCurrentQuery(query);
     setResponse("");
     
-    // Simulate AI response
+    // Simulate AI response with 30 second delay
     setTimeout(() => {
       const mockResponse = `Based on your query about "${query}", here's what I found:\n\n• Campaign performance is trending upward with a 23% increase in CTR\n• Top performing segment: 25-34 age group\n• Recommended optimization: Increase budget allocation to mobile platforms\n\nWould you like more detailed metrics or specific recommendations?`;
       
       setResponse(mockResponse);
       setQuery("");
       setIsLoading(false);
-    }, 1500);
+    }, 30000);
   };
 
   return (
