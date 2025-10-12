@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Send, Sparkles } from "lucide-react";
 import ResponseChart from "./ResponseChart";
 import ResponseTable from "./ResponseTable";
+import AILoader from "./AILoader";
 
 const QuerySection = () => {
   const [query, setQuery] = useState("");
@@ -64,14 +65,19 @@ const QuerySection = () => {
           </div>
 
           {/* Response Area */}
-          {(currentQuery || response) && (
+          {(currentQuery || response || isLoading) && (
             <div className="animate-slide-up">
               {currentQuery && (
                 <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 border-b border-gray-200">
                   <p className="text-gray-900 font-medium text-lg">{currentQuery}</p>
                 </div>
               )}
-              {response && (
+              {isLoading && (
+                <div className="p-8">
+                  <AILoader />
+                </div>
+              )}
+              {response && !isLoading && (
                 <div className="p-8 space-y-8">
                   {/* Text Response */}
                   <div className="flex items-start gap-4">
