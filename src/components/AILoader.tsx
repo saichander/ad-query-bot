@@ -49,13 +49,13 @@ const AILoader = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+    <div className="relative w-full h-[500px] flex items-center justify-center overflow-hidden bg-white">
       {/* Subtle Grid */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            linear-gradient(hsl(var(--primary) / 0.2) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--primary) / 0.2) 1px, transparent 1px)
+            linear-gradient(hsl(var(--primary) / 0.3) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--primary) / 0.3) 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px',
         }} />
@@ -84,11 +84,11 @@ const AILoader = () => {
             />
             
             {/* Inner glow */}
-            <div className="absolute inset-8 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 blur-xl" />
+            <div className="absolute inset-8 rounded-full bg-gradient-to-br from-primary/10 to-accent/10 blur-xl" />
             
             {/* Center icon with pulsing effect */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative glass-strong rounded-full p-8 border border-white/20">
+              <div className="relative bg-white rounded-full p-8 border-2 border-gray-100 shadow-lg">
                 <CurrentIcon 
                   className="w-12 h-12 text-primary transition-all duration-500" 
                   key={currentStageIndex}
@@ -109,36 +109,17 @@ const AILoader = () => {
           {/* Stage Information */}
           <div className="text-center space-y-3 min-h-[80px] transition-all duration-500">
             <h3 
-              className="text-2xl font-semibold text-white tracking-wide"
+              className="text-2xl font-semibold text-gray-900 tracking-wide"
               key={`title-${currentStageIndex}`}
             >
               {currentStage.title}
             </h3>
             <p 
-              className="text-base text-white/60"
+              className="text-base text-gray-600"
               key={`subtitle-${currentStageIndex}`}
             >
               {currentStage.subtitle}
             </p>
-          </div>
-
-          {/* Progress Bar */}
-          <div className="w-full space-y-4">
-            <div className="relative h-2 bg-white/5 rounded-full overflow-hidden border border-white/10">
-              <div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-accent to-primary rounded-full shadow-lg shadow-primary/50 transition-all duration-100 ease-linear"
-                style={{ width: `${progress}%` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse" />
-              </div>
-            </div>
-
-            {/* Progress Percentage */}
-            <div className="text-center">
-              <span className="text-xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tabular-nums">
-                {Math.round(progress)}%
-              </span>
-            </div>
           </div>
         </div>
       </div>
