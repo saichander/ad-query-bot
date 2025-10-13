@@ -1,17 +1,35 @@
 import { useEffect, useState } from "react";
-import { Brain, Sparkles } from "lucide-react";
+import { Brain, Database, TrendingUp, Sparkles } from "lucide-react";
 
 const AILoader = () => {
   const [progress, setProgress] = useState(0);
 
   const stages = [
-    "Analyzing campaign performance",
-    "Processing attribution data",
-    "Identifying optimization opportunities",
-    "Generating insights",
+    { 
+      title: "Analyzing Campaign Data",
+      subtitle: "Scanning performance metrics across channels",
+      icon: Database 
+    },
+    { 
+      title: "Processing Attribution", 
+      subtitle: "Mapping customer touchpoints and conversions",
+      icon: TrendingUp 
+    },
+    { 
+      title: "Identifying Opportunities",
+      subtitle: "Detecting optimization patterns",
+      icon: Sparkles 
+    },
+    { 
+      title: "Generating Insights",
+      subtitle: "Compiling recommendations",
+      icon: Brain 
+    },
   ];
 
-  const currentStage = Math.min(Math.floor(progress / 25), stages.length - 1);
+  const currentStageIndex = Math.min(Math.floor(progress / 25), stages.length - 1);
+  const currentStage = stages[currentStageIndex];
+  const CurrentIcon = currentStage.icon;
 
   useEffect(() => {
     const duration = 30000;
@@ -30,24 +48,6 @@ const AILoader = () => {
     return () => clearInterval(progressInterval);
   }, []);
 
-  // Generate flowing data particles
-  const dataPoints = Array.from({ length: 40 }, (_, i) => ({
-    id: i,
-    delay: i * 0.3,
-    duration: 3 + Math.random() * 2,
-    offset: Math.random() * 100,
-  }));
-
-  // Generate animated waveform
-  const wavePoints = Array.from({ length: 50 }, (_, i) => {
-    const x = (i / 49) * 100;
-    const baseY = 50;
-    const wave1 = Math.sin((i + progress * 0.5) * 0.3) * 15;
-    const wave2 = Math.sin((i + progress * 0.3) * 0.5) * 10;
-    const y = baseY + wave1 + wave2;
-    return `${x},${y}`;
-  }).join(' ');
-
   return (
     <div className="relative w-full h-[500px] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Subtle Grid */}
@@ -61,113 +61,69 @@ const AILoader = () => {
         }} />
       </div>
 
-      {/* Floating Data Particles */}
-      <svg className="absolute inset-0 w-full h-full">
-        {dataPoints.map((point) => (
-          <circle
-            key={point.id}
-            r="2"
-            fill="hsl(var(--primary))"
-            opacity="0.4"
-            style={{
-              animation: `float ${point.duration}s ease-in-out infinite`,
-              animationDelay: `${point.delay}s`,
-            }}
-          >
-            <animateMotion
-              dur={`${point.duration}s`}
-              repeatCount="indefinite"
-              path={`M ${point.offset},500 Q ${point.offset + 100},250 ${point.offset + 50},0`}
-            />
-          </circle>
-        ))}
-      </svg>
-
       {/* Main Content */}
-      <div className="relative z-10 w-full max-w-3xl px-8">
+      <div className="relative z-10 w-full max-w-2xl px-8">
         <div className="flex flex-col items-center space-y-12">
           
-          {/* Central AI Brain Icon */}
-          <div className="relative">
-            <div className="absolute inset-0 blur-3xl bg-gradient-to-r from-primary to-accent opacity-30 animate-pulse" />
-            <div className="relative glass-strong rounded-3xl p-8 border border-white/10">
-              <div className="relative">
-                {/* Orbiting sparkles */}
-                <div className="absolute inset-0">
-                  {[0, 120, 240].map((rotation) => (
-                    <div
-                      key={rotation}
-                      className="absolute inset-0"
-                      style={{
-                        animation: 'spin 4s linear infinite',
-                        animationDelay: `${rotation / 120}s`,
-                      }}
-                    >
-                      <Sparkles 
-                        className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 text-accent"
-                        style={{ transformOrigin: 'center 50px' }}
-                      />
-                    </div>
-                  ))}
-                </div>
-                
-                <Brain className="w-16 h-16 text-primary relative animate-pulse" />
+          {/* Central Orbital Loader */}
+          <div className="relative w-48 h-48">
+            {/* Outer rotating ring */}
+            <div 
+              className="absolute inset-0 rounded-full border-4 border-transparent border-t-primary border-r-primary"
+              style={{
+                animation: 'spin 3s linear infinite',
+              }}
+            />
+            
+            {/* Middle rotating ring - opposite direction */}
+            <div 
+              className="absolute inset-4 rounded-full border-4 border-transparent border-b-accent border-l-accent"
+              style={{
+                animation: 'spin 2s linear infinite reverse',
+              }}
+            />
+            
+            {/* Inner glow */}
+            <div className="absolute inset-8 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 blur-xl" />
+            
+            {/* Center icon with pulsing effect */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative glass-strong rounded-full p-8 border border-white/20">
+                <CurrentIcon 
+                  className="w-12 h-12 text-primary transition-all duration-500" 
+                  key={currentStageIndex}
+                />
               </div>
             </div>
+
+            {/* Orbiting progress indicator */}
+            <div 
+              className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-accent shadow-lg shadow-accent/50"
+              style={{
+                transformOrigin: '50% calc(50% + 96px)',
+                animation: `spin ${30 / (progress / 100 || 0.01)}s linear infinite`,
+              }}
+            />
           </div>
 
-          {/* Dynamic Waveform Visualization */}
-          <div className="w-full glass-strong rounded-2xl p-8 border border-white/10">
-            <svg viewBox="0 0 100 100" className="w-full h-32" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
-                  <stop offset={`${progress}%`} stopColor="hsl(var(--accent))" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
-                </linearGradient>
-              </defs>
-              
-              <polyline
-                points={wavePoints}
-                fill="none"
-                stroke="url(#waveGradient)"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              
-              {/* Progress indicator on wave */}
-              <circle
-                cx={progress}
-                cy={50 + Math.sin((progress / 49 * 50 + progress * 0.5) * 0.3) * 15 + Math.sin((progress / 49 * 50 + progress * 0.3) * 0.5) * 10}
-                r="4"
-                fill="hsl(var(--accent))"
-                className="drop-shadow-[0_0_8px_hsl(var(--accent))]"
-              />
-            </svg>
+          {/* Stage Information */}
+          <div className="text-center space-y-3 min-h-[80px] transition-all duration-500">
+            <h3 
+              className="text-2xl font-semibold text-white tracking-wide"
+              key={`title-${currentStageIndex}`}
+            >
+              {currentStage.title}
+            </h3>
+            <p 
+              className="text-base text-white/60"
+              key={`subtitle-${currentStageIndex}`}
+            >
+              {currentStage.subtitle}
+            </p>
           </div>
 
-          {/* Status */}
-          <div className="w-full space-y-6">
-            {/* Stage Text */}
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <div className="flex gap-1">
-                  {[...Array(3)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-accent animate-pulse"
-                      style={{ animationDelay: `${i * 0.2}s` }}
-                    />
-                  ))}
-                </div>
-              </div>
-              <p className="text-lg text-white/90 font-medium tracking-wide">
-                {stages[currentStage]}
-              </p>
-            </div>
-
-            {/* Progress Bar */}
+          {/* Progress Bar */}
+          <div className="w-full space-y-4">
             <div className="relative h-2 bg-white/5 rounded-full overflow-hidden border border-white/10">
               <div
                 className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-accent to-primary rounded-full shadow-lg shadow-primary/50 transition-all duration-100 ease-linear"
@@ -179,20 +135,13 @@ const AILoader = () => {
 
             {/* Progress Percentage */}
             <div className="text-center">
-              <span className="text-2xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tabular-nums">
+              <span className="text-xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent tabular-nums">
                 {Math.round(progress)}%
               </span>
             </div>
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes float {
-          0%, 100% { opacity: 0; }
-          50% { opacity: 0.6; }
-        }
-      `}</style>
     </div>
   );
 };
