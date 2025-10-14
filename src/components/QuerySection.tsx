@@ -5,12 +5,14 @@ import { Send, Sparkles } from "lucide-react";
 import ResponseChart from "./ResponseChart";
 import ResponseTable from "./ResponseTable";
 import AILoader from "./AILoader";
+import ErrorScreen from "./ErrorScreen";
 
 const QuerySection = () => {
   const [query, setQuery] = useState("");
   const [currentQuery, setCurrentQuery] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const handleSubmit = async () => {
     if (!query.trim()) return;
@@ -18,6 +20,16 @@ const QuerySection = () => {
     setIsLoading(true);
     setCurrentQuery(query);
     setResponse("");
+    setHasError(false);
+    
+    // Check if query is "error" to trigger error screen
+    if (query.toLowerCase().trim() === "error") {
+      setTimeout(() => {
+        setHasError(true);
+        setIsLoading(false);
+      }, 2000);
+      return;
+    }
     
     // Simulate AI response with 30 second delay
     setTimeout(() => {
@@ -27,6 +39,12 @@ const QuerySection = () => {
       setQuery("");
       setIsLoading(false);
     }, 30000);
+  };
+
+  const handleRetry = () => {
+    setHasError(false);
+    setCurrentQuery("");
+    setResponse("");
   };
 
   return (
@@ -65,9 +83,9 @@ const QuerySection = () => {
           </div>
 
           {/* Response Area */}
-          {(currentQuery || response || isLoading) && (
+          {(currentQuery || response || isLoading || hasError) && (
             <div className="animate-slide-up">
-              {currentQuery && (
+              {currentQuery && !hasError && (
                 <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 border-b border-gray-200">
                   <p className="text-gray-900 font-medium text-lg">{currentQuery}</p>
                 </div>
@@ -77,7 +95,12 @@ const QuerySection = () => {
                   <AILoader />
                 </div>
               )}
-              {response && !isLoading && (
+              {hasError && !isLoading && (
+                <div className="p-8">
+                  <ErrorScreen onRetry={handleRetry} />
+                </div>
+              )}
+              {response && !isLoading && !hasError && (
                 <div className="p-8 space-y-8">
                   {/* Text Response */}
                   <div className="flex items-start gap-4">
