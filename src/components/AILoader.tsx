@@ -116,18 +116,6 @@ const AILoader = () => {
               }}
             />
             
-            {/* AI Neural Network Lines */}
-            {[0, 60, 120, 180, 240, 300].map((angle, i) => (
-              <div
-                key={i}
-                className="absolute top-1/2 left-1/2 w-20 h-[2px] bg-gradient-to-r from-primary/40 to-transparent origin-left"
-                style={{
-                  transform: `translate(-50%, -50%) rotate(${angle + progress}deg)`,
-                  animation: `pulse ${2 + i * 0.2}s ease-in-out infinite`,
-                  animationDelay: `${i * 0.1}s`,
-                }}
-              />
-            ))}
             
             {/* Central AI Core */}
             <div className="absolute inset-0 flex items-center justify-center">
@@ -165,16 +153,19 @@ const AILoader = () => {
               </div>
             </div>
 
-            {/* Orbiting data nodes */}
-            {[0, 120, 240].map((angle, i) => (
+            {/* Orbiting satellite nodes */}
+            {[0, 90, 180, 270].map((angle, i) => (
               <div
                 key={i}
-                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-gradient-to-br from-accent to-primary shadow-lg"
+                className="absolute w-4 h-4 rounded-full bg-gradient-to-br from-accent to-primary shadow-lg"
                 style={{
-                  transformOrigin: '50% calc(50% + 128px)',
-                  animation: `spin ${4 + i}s linear infinite`,
-                  animationDelay: `${i * 0.3}s`,
-                  filter: 'drop-shadow(0 0 4px hsl(var(--accent) / 0.6))',
+                  top: '50%',
+                  left: '50%',
+                  transform: `rotate(${angle}deg) translateX(128px) translateY(-50%)`,
+                  transformOrigin: 'left center',
+                  animation: `spin ${6 + i * 0.5}s linear infinite`,
+                  animationDelay: `${-i * 1.5}s`,
+                  filter: 'drop-shadow(0 0 6px hsl(var(--accent) / 0.7))',
                 }}
               />
             ))}
