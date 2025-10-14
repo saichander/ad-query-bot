@@ -83,12 +83,9 @@ const AILoader = () => {
             <div 
               className="absolute inset-0 rounded-full border-2 border-primary/30"
               style={{
-                animation: 'spin 8s linear infinite',
                 filter: 'drop-shadow(0 0 10px hsl(var(--primary) / 0.3))',
               }}
-            >
-              <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-primary" />
-            </div>
+            />
             
             {/* Outer rotating ring with gradient */}
             <div 
@@ -153,18 +150,16 @@ const AILoader = () => {
               </div>
             </div>
 
-            {/* Orbiting satellite nodes */}
-            {[0, 90, 180, 270].map((angle, i) => (
+            {/* Orbiting satellite nodes on outer border */}
+            {[0, 120, 240].map((angle, i) => (
               <div
                 key={i}
-                className="absolute w-4 h-4 rounded-full bg-gradient-to-br from-accent to-primary shadow-lg"
+                className="absolute top-1/2 left-1/2 w-3 h-3 rounded-full bg-gradient-to-br from-accent to-primary shadow-lg"
                 style={{
-                  top: '50%',
-                  left: '50%',
-                  transform: `rotate(${angle}deg) translateX(128px) translateY(-50%)`,
-                  transformOrigin: 'left center',
-                  animation: `spin ${6 + i * 0.5}s linear infinite`,
-                  animationDelay: `${-i * 1.5}s`,
+                  transform: `translate(-50%, -50%)`,
+                  transformOrigin: '0 0',
+                  animation: `orbit-${i} 12s linear infinite`,
+                  animationDelay: `${-i * 4}s`,
                   filter: 'drop-shadow(0 0 6px hsl(var(--accent) / 0.7))',
                 }}
               />
@@ -192,6 +187,33 @@ const AILoader = () => {
           50% { 
             transform: translateY(-20px);
             opacity: 0.6;
+          }
+        }
+        
+        @keyframes orbit-0 {
+          from {
+            transform: translate(-50%, -50%) rotate(0deg) translateX(128px) rotate(0deg);
+          }
+          to {
+            transform: translate(-50%, -50%) rotate(360deg) translateX(128px) rotate(-360deg);
+          }
+        }
+        
+        @keyframes orbit-1 {
+          from {
+            transform: translate(-50%, -50%) rotate(120deg) translateX(128px) rotate(-120deg);
+          }
+          to {
+            transform: translate(-50%, -50%) rotate(480deg) translateX(128px) rotate(-480deg);
+          }
+        }
+        
+        @keyframes orbit-2 {
+          from {
+            transform: translate(-50%, -50%) rotate(240deg) translateX(128px) rotate(-240deg);
+          }
+          to {
+            transform: translate(-50%, -50%) rotate(600deg) translateX(128px) rotate(-600deg);
           }
         }
       `}</style>
