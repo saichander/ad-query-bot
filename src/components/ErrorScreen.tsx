@@ -41,18 +41,27 @@ const ErrorScreen = ({ onRetry }: ErrorScreenProps) => {
           
           {/* Broken Satellite Illustration */}
           <div className="relative w-48 h-48">
-            {/* Orbital rings - broken/glitchy effect */}
+            {/* Broken orbital rings - static/glitchy effect */}
             <div 
               className="absolute inset-0 rounded-full border-2 border-dashed border-destructive/40"
               style={{
-                animation: 'spin 6s linear infinite',
+                clipPath: 'polygon(0 0, 100% 0, 100% 45%, 55% 45%, 55% 55%, 100% 55%, 100% 100%, 0 100%)',
               }}
             />
             
             <div 
               className="absolute inset-4 rounded-full border-[4px] border-transparent border-t-destructive/60 border-r-destructive/60"
               style={{
-                animation: 'spin 4s linear infinite reverse',
+                transform: 'rotate(25deg)',
+                clipPath: 'polygon(0 0, 100% 0, 100% 60%, 0 60%)',
+              }}
+            />
+            
+            <div 
+              className="absolute inset-8 rounded-full border-[3px] border-accent/40"
+              style={{
+                transform: 'rotate(-15deg)',
+                clipPath: 'polygon(40% 0, 100% 0, 100% 100%, 40% 100%)',
               }}
             />
             
