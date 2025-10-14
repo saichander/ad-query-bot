@@ -155,7 +155,7 @@ const AILoader = () => {
               className="absolute top-1/2 left-1/2"
               style={{
                 transform: `translate(-50%, -50%)`,
-                animation: `orbit-earth 10s linear infinite`,
+                animation: `orbit-earth 16s linear infinite`,
               }}
             >
               <div className="w-4 h-4 rounded-full bg-gradient-to-br from-primary to-accent shadow-lg"
@@ -169,7 +169,7 @@ const AILoader = () => {
                 className="absolute top-1/2 left-1/2"
                 style={{
                   transform: `translate(-50%, -50%)`,
-                  animation: `orbit-moon 3s linear infinite`,
+                  animation: `orbit-moon 5s linear infinite`,
                 }}
               >
                 <div className="w-2 h-2 rounded-full bg-gradient-to-br from-accent to-primary shadow-lg"
