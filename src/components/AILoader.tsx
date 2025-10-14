@@ -150,20 +150,35 @@ const AILoader = () => {
               </div>
             </div>
 
-            {/* Orbiting satellite nodes on outer border */}
-            {[0, 120, 240].map((angle, i) => (
-              <div
-                key={i}
-                className="absolute top-1/2 left-1/2 w-3 h-3 rounded-full bg-gradient-to-br from-accent to-primary shadow-lg"
+            {/* Earth orbiting on outer border */}
+            <div
+              className="absolute top-1/2 left-1/2"
+              style={{
+                transform: `translate(-50%, -50%)`,
+                animation: `orbit-earth 10s linear infinite`,
+              }}
+            >
+              <div className="w-4 h-4 rounded-full bg-gradient-to-br from-primary to-accent shadow-lg"
                 style={{
-                  transform: `translate(-50%, -50%)`,
-                  transformOrigin: '0 0',
-                  animation: `orbit-${i} 12s linear infinite`,
-                  animationDelay: `${-i * 4}s`,
-                  filter: 'drop-shadow(0 0 6px hsl(var(--accent) / 0.7))',
+                  filter: 'drop-shadow(0 0 8px hsl(var(--primary) / 0.7))',
                 }}
               />
-            ))}
+              
+              {/* Moon orbiting around Earth */}
+              <div
+                className="absolute top-1/2 left-1/2"
+                style={{
+                  transform: `translate(-50%, -50%)`,
+                  animation: `orbit-moon 3s linear infinite`,
+                }}
+              >
+                <div className="w-2 h-2 rounded-full bg-gradient-to-br from-accent to-primary shadow-lg"
+                  style={{
+                    filter: 'drop-shadow(0 0 4px hsl(var(--accent) / 0.6))',
+                  }}
+                />
+              </div>
+            </div>
           </div>
 
           {/* Stage Information */}
@@ -190,7 +205,7 @@ const AILoader = () => {
           }
         }
         
-        @keyframes orbit-0 {
+        @keyframes orbit-earth {
           from {
             transform: translate(-50%, -50%) rotate(0deg) translateX(128px) rotate(0deg);
           }
@@ -199,21 +214,12 @@ const AILoader = () => {
           }
         }
         
-        @keyframes orbit-1 {
+        @keyframes orbit-moon {
           from {
-            transform: translate(-50%, -50%) rotate(120deg) translateX(128px) rotate(-120deg);
+            transform: translate(-50%, -50%) rotate(0deg) translateX(20px) rotate(0deg);
           }
           to {
-            transform: translate(-50%, -50%) rotate(480deg) translateX(128px) rotate(-480deg);
-          }
-        }
-        
-        @keyframes orbit-2 {
-          from {
-            transform: translate(-50%, -50%) rotate(240deg) translateX(128px) rotate(-240deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(600deg) translateX(128px) rotate(-600deg);
+            transform: translate(-50%, -50%) rotate(360deg) translateX(20px) rotate(-360deg);
           }
         }
       `}</style>
