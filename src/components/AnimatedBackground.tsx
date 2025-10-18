@@ -5,7 +5,11 @@ const AnimatedBackground = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setVisible(true);
+    // Delay background elements to appear after main content
+    const timer = setTimeout(() => {
+      setVisible(true);
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
